@@ -88,5 +88,37 @@ namespace DungeonAdventure
         {
             return dungeon.HasMonsters() ? "La mazmora tiene monstruos." : "La mazmora está vacía.";
         }
+
+        public string FindTreasure(Player player)
+        {
+            var random = new Random();
+            int treasureAmount = random.Next(10, 100);
+            player.EarnGold(treasureAmount);
+            return $"{player.Name} ha encontrado un tesoro y ha ganado {treasureAmount} de oro!";
+        }
+        public string Train(Player player)
+        {
+            if (player.Health > 10) 
+            {
+                player.Health -= 10;
+                player.AttackPower += 5; 
+                return $"{player.Name} ha entrenado y ahora tiene {player.Health} HP y {player.AttackPower} de poder de ataque.";
+            }
+            return $"{player.Name} no tiene suficiente salud para entrenar.";
+        }
+
+        public string Rest(Player player)
+        {
+            int healthRestored = 20;
+            player.Heal(healthRestored);
+            if (player.AttackPower >= 5) 
+            {
+                player.AttackPower -= 2;
+            }
+
+            return $"{player.Name} ha descansado y ha recuperado {healthRestored} HP, pero ha perdido algo de fuerza y ahora tiene {player.AttackPower} de poder de ataque.";
+        }
+
+
     }
 }
